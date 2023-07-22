@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+import { getFirestore, collection, setDoc, doc, query, where, getDocs  } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -34,6 +34,8 @@ const signInBtn = document.getElementById('sign_in-btn')
 const regBtn = document.getElementById('reg-btn')
 const formContainer = document.querySelector('.form-container')
 const chatAppContainer = document.querySelector('.chat-app-container')
+const usersContainer = document.getElementById('users')
+const signOutBtn = document.getElementById('sign-out-btn')
 
 goToRegister.addEventListener('click', () => {
     signInForm.style.display = 'none';
@@ -62,9 +64,10 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
       uid = user.uid;
       formContainer.style.display = 'none';
-      chatAppContainer.style.display = 'block';
-console.log(uid)
-
+      chatAppContainer.style.display = 'flex';
+      setTimeout(() => {
+        getUsers(); 
+      }, 500);
     } else {
         formContainer.style.display = 'block';
         chatAppContainer.style.display = 'none';
@@ -89,12 +92,6 @@ function register() {
         email: regEmail.value,
         pass: regPass.value
     });
-    // const userRef = await addDoc(collection(db, `user`), {
-    //   name: userName.value,
-    //   email: regEmail.value,
-    //   password: regPass.value
-    // });
-    // console.log(userRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }},2000)
@@ -113,3 +110,25 @@ function signIn() {
   });
 };
 signInBtn.addEventListener('click', signIn);
+
+function logOut() {
+  signOut(auth).then(() => {
+  }).catch((error) => {
+    alert(error.code)
+  });
+};
+signOutBtn.addEventListener('click', logOut)
+
+
+async function getUsers() {
+  usersContainer.innerHTML = '';
+
+  const q = query(collection(db, "users"));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    let userCard = `<div class="user-cards"><span>${doc.data().name}</span></div>`
+    usersContainer.innerHTML += userCard
+    // console.log(doc.id, " => ", doc.data());
+    // console.log(doc.id, " => ", doc.data().name);
+  }); 
+};
