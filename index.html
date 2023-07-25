@@ -1,55 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat App</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">    
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">    
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">    
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">    
-</head>
-<body>
-    
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+
     <!-- sign in /sign up -->
 
     <div class="form-container">
-        <div class="box1 box-animate box-circle"></div>
-        <div class="box2 box-animate-rev box-circle"></div>
-        <div class="box3 box-animate box-circle"></div>
-        <div class="box4 box-animate-rev box-circle"></div>
-        <div class="circle1 circle-animate box-circle"></div>
-        <div class="circle2 circle-animate-rev box-circle"></div>
-        <div class="circle3 circle-animate box-circle"></div>
-        <div class="circle4 circle-animate-rev box-circle"></div>
-        <div class="sign-in form">
-            <h1>Sign In</h1>
-            <input type="email" placeholder="Email" id="sign-in-email" class="form-input" required>
-            <input type="password" placeholder="Password" id="sign-in-pass" class="form-input" required>
-            <span>Don't have an account? <span id="goRegister">Register</span></span>
-            <button id="sign_in-btn">Sign In</button>
-        </div>
-        <div class="register form" style="display: none;">
-            <h1>Sign Up</h1>
-            <input type="text" placeholder="Userame" id="reg-name" class="form-input" required>
-            <input type="email" placeholder="Email" id="reg-email" class="form-input" required>
-            <input type="password" placeholder="Password" id="reg-pass" class="form-input" required>
-            <span>Already have an account? <span id="goSignIn">Sign In</span></span>
-            <button id="reg-btn">Register</button>
-        </div>
+      <div class="box1 box-animate box-circle"></div>
+      <div class="box2 box-animate-rev box-circle"></div>
+      <div class="box3 box-animate box-circle"></div>
+      <div class="box4 box-animate-rev box-circle"></div>
+      <div class="circle1 circle-animate box-circle"></div>
+      <div class="circle2 circle-animate-rev box-circle"></div>
+      <div class="circle3 circle-animate box-circle"></div>
+      <div class="circle4 circle-animate-rev box-circle"></div>
+      <div class="sign-in form">
+        <h1>Sign In</h1>
+        <input
+          type="email"
+          placeholder="Email"
+          id="sign-in-email"
+          class="form-input"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          id="sign-in-pass"
+          class="form-input"
+          required
+        />
+        <span>Don't have an account? <span id="goRegister">Register</span></span>
+        <button id="sign_in-btn">Sign In</button>
+      </div>
+      <div class="register form" style="display: none">
+        <h1>Sign Up</h1>
+        <input
+          type="text"
+          placeholder="Userame"
+          id="reg-name"
+          class="form-input"
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          id="reg-email"
+          class="form-input"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          id="reg-pass"
+          class="form-input"
+          required
+        />
+        <input type="file" id="user-image">
+        <span>Already have an account? <span id="goSignIn">Sign In</span></span>
+        <button id="reg-btn">Register</button>
+      </div>
     </div>
 
     <div class="chat-app-container">
-        <div id="users">
+      <div id="users"></div>
+      <div id="chats">
+        <div id="chat-header">
+          <img id="chat-user-image" src="" alt="" srcset="">
+          <span id="second-person-name"></span>
         </div>
-        <div id="chats">
+        <div id="chat-container"></div>
+        <div id="msg-container">
+          <input type="text" placeholder="Type msg" id="msg-input" />
+          <button id="send-msg-btn"><i class="fa-solid fa-circle-chevron-right"></i></button>
         </div>
-        <button id="sign-out-btn">Sign Out</button>
+      </div>
+      <button id="sign-out-btn">Sign Out</button>
     </div>
     <script src="app.js" type="module"></script>
-</body>
+  </body>
 </html>

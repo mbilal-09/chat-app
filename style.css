@@ -1,214 +1,295 @@
 * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
-    background: rgb(27, 27, 27);
-    overflow: hidden;
+  background: rgb(14, 13, 13);
+  overflow: hidden !important;
 }
 
 .form {
-    background-color: black;
-    width: 15em;
-    padding: 3em;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: height 0.3s linear;
+  background-color: black;
+  width: 15em;
+  padding: 3em;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: height 0.3s linear;
 }
 
 .form > h1 {
-    color: #AB17EE;
-    padding-bottom: 0.5em;
+  color: #ab17ee;
+  padding-bottom: 0.5em;
 }
 
 .form > input {
-    width: 100%;
-    height: 3em;
-    outline: none;
-    border: none;
-    margin-bottom: 1em;
-    padding-left: 0.5em;
-    font-size: medium;
-    color: white;
-    background-color: black;
-    font-weight: 300;
-    border-bottom: solid 1px #AB17EE;
+  width: 100%;
+  height: 3em;
+  outline: none;
+  border: none;
+  margin-bottom: 1em;
+  padding-left: 0.5em;
+  font-size: medium;
+  color: white;
+  background-color: black;
+  font-weight: 300;
+  border-bottom: solid 1px #ab17ee;
 }
 
 .form > input::placeholder {
-    color: white;
+  color: white;
 }
 
 .form > span {
-    color: white;
-    margin-bottom: 1em; 
-    font-weight: 300;
+  color: white;
+  margin-bottom: 1em;
+  font-weight: 300;
 }
 
 .form > span > span {
-    color: #AB17EE;
-    cursor: pointer;
+  color: #ab17ee;
+  cursor: pointer;
 }
 
 .form > button {
-    width: fit-content;
-    padding: 1em;
-    border: none;
-    border-radius: 5px;
-    background: black;
-    color: #AB17EE;
-    transition: all 0.3s ease-in;
+  width: fit-content;
+  padding: 1em;
+  border: none;
+  border-radius: 5px;
+  background: black;
+  color: #ab17ee;
+  transition: all 0.3s ease-in;
 }
 
 .form > button:hover {
-    background: #AB17EE;
-    color: white;
-    cursor: pointer;
+  background: #ab17ee;
+  color: white;
+  cursor: pointer;
 }
 
 .box1 {
-    width: 100px;
-    height: 100px;
-    background-color: #AB17EE;
-    position: absolute;
-    top: 15%;
-    left: 15%;
+  width: 100px;
+  height: 100px;
+  background-color: #ab17ee;
+  position: absolute;
+  top: 15%;
+  left: 15%;
 }
 
 .box2 {
-    width: 50px;
-    height: 50px;
-    background-color: #AB17EE;
-    position: absolute;
-    top: 50%;
-    left: 70%;
+  width: 50px;
+  height: 50px;
+  background-color: #ab17ee;
+  position: absolute;
+  top: 50%;
+  left: 70%;
 }
 
 .box3 {
-    width: 70px;
-    height: 70px;
-    background-color: #AB17EE;
-    position: absolute;
-    top: 10%;
-    left: 90%;
+  width: 70px;
+  height: 70px;
+  background-color: #ab17ee;
+  position: absolute;
+  top: 10%;
+  left: 90%;
 }
 
 .box4 {
-    width: 30px;
-    height: 30px;
-    background-color: #AB17EE;
-    position: absolute;
-    top: 90%;
-    left: 10%;
+  width: 30px;
+  height: 30px;
+  background-color: #ab17ee;
+  position: absolute;
+  top: 90%;
+  left: 10%;
 }
 
-.box-animate{
-    opacity: 0.5;
-    animation: rotate 5s linear infinite;
+.box-animate {
+  opacity: 0.5;
+  animation: rotate 5s linear infinite;
 }
 
-.box-animate-rev{
-    opacity: 0.5;
-    animation: rotate 5s linear infinite reverse;
+.box-animate-rev {
+  opacity: 0.5;
+  animation: rotate 5s linear infinite reverse;
 }
 
 .circle1 {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: solid 3px black;
-    border-top: solid 3px #AB17EE;
-    position: absolute;
-    top: 14%;
-    left: 60%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: solid 3px black;
+  border-top: solid 3px #ab17ee;
+  position: absolute;
+  top: 14%;
+  left: 60%;
 }
 
 .circle2 {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: solid 3px black;
-    border-top: solid 3px #AB17EE;
-    position: absolute;
-    top: 75%;
-    left: 85%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: solid 3px black;
+  border-top: solid 3px #ab17ee;
+  position: absolute;
+  top: 75%;
+  left: 85%;
 }
 
 .circle3 {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: solid 3px black;
-    border-top: solid 3px #AB17EE;
-    position: absolute;
-    top: 50%;
-    left: 5%;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: solid 3px black;
+  border-top: solid 3px #ab17ee;
+  position: absolute;
+  top: 50%;
+  left: 5%;
 }
 
 .circle4 {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: solid 3px black;
-    border-top: solid 3px #AB17EE;
-    position: absolute;
-    top: 90%;
-    left: 40%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: solid 3px black;
+  border-top: solid 3px #ab17ee;
+  position: absolute;
+  top: 90%;
+  left: 40%;
 }
 
-.circle-animate{
-    opacity: 0.5;
-    animation: rotate 3s linear infinite;
+.circle-animate {
+  opacity: 0.5;
+  animation: rotate 3s linear infinite;
 }
 
-.circle-animate-rev{
-    opacity: 0.5;
-    animation: rotate 3s linear infinite reverse;
+.circle-animate-rev {
+  opacity: 0.5;
+  animation: rotate 3s linear infinite reverse;
 }
 
 @keyframes rotate {
-    from {
-        transform: rotateZ(0deg);
-    }
-    to {
-        transform: rotateZ(360deg);
-    }
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
 }
 
 .blur {
-    filter: blur(5px);
+  filter: blur(5px);
 }
 
 .chat-app-container {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #users {
-    width: 30%;
-    background-color: #AB17EE;
+  width: 30%;
+  background-color: black;
 }
 
 #chats {
-    width: 70%;
-    background-color: aqua;
+  width: 70%;
+  background-color: #ccc;
 }
 
 .user-cards {
-    width: 100%;
-    background-color: black;
-    color: white;
-    border-bottom: solid 1px #ccc;
-    padding: 1em;
+  display: block;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border-bottom: solid 1px #505050;
+  padding: 1em;
+  cursor: pointer;
+  text-transform: capitalize;
 }
 
-.user-cards:focus {
-    background-color: #AB17EE;
+#chat-header{
+  height: 60px;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+#chat-header > img {
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+#chat-container {
+    height: 545px;
+    background-color: rgb(14, 13, 13);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+}
+
+#msg-container {
+    height: 10%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 5px;
+}
+
+#msg-container > input {
+    height: 70%;
+    width: 93%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #ab17ee;
+    outline: none;
+    color: white;
+}
+
+#msg-container > button {
+    height: 70%;
+    width: 6%;
+    font-size: 2em;
+    border: none;
+    background-color: transparent;
+    color: #ab17ee;
+}
+
+.msg-box {
+  width: fit-content !important;
+  background-color: black;
+  color: white;
+  padding: 1em;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.msg-box > span {
+  display: block !important;
+  color: white;
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.from {
+  background-color: #ab17ee;
+  align-self: flex-end;
+}
+
+.to {
+  background-color: rgb(34, 34, 34);
 }
