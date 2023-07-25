@@ -16,7 +16,8 @@ import {
   getDocs,
   addDoc,
   onSnapshot,
-  orderBy
+  orderBy,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-storage.js";
@@ -62,6 +63,9 @@ const secondPersonName = document.getElementById('second-person-name');
 const userImage = document.getElementById('user-image');
 const chatUserImg = document.getElementById('chat-user-image');
 const loader = document.getElementById('loader');
+const msgContainer = document.getElementById('msg-container');
+const currentUserImg = document.getElementById('profile-img');
+const currentUserName = document.getElementById('current-user-name');
 let secondUserId, chatId;
 let profileUrl;
 
@@ -180,16 +184,30 @@ function logOut() {
 signOutBtn.addEventListener("click", logOut);
 
 async function getUsers() {
-  usersContainer.innerHTML = "";
 
+  const docRef = doc(db, "users", uid);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    currentUserImg.src = docSnap.data().profileImg;
+    currentUserName.innerText = docSnap.data().name;
+  } else {
+    // docSnap.data() will be undefined in this case
+    console.log("No such document!");
+  }
+
+
+  usersContainer.innerHTML = "";
   const q = query(collection(db, "users"));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
-    let userCard = `<span class="user-cards" id=${doc.id}>
-    <img src=${doc.data().profileImg}></img>
-    ${doc.data().name}
-    </span>`;
-    usersContainer.innerHTML += userCard;
+    if (doc.id === uid) {
+    } else {
+      let userCard = `<span class="user-cards" id=${doc.id}>
+      <img src=${doc.data().profileImg}></img>
+      ${doc.data().name}
+      </span>`;
+      usersContainer.innerHTML += userCard;
+    };
   });
   Array.from(document.getElementsByClassName('user-cards')).forEach((e) => {
     e.addEventListener('click', chats)
@@ -203,7 +221,9 @@ function chats(card) {
   let userCard = card.target;
   userCard.style.backgroundColor = 'rgb(27, 27, 27)';
   chatUserImg.src = userCard.children[0].src;
-  secondPersonName.innerText = userCard.innerText
+  chatUserImg.style.display = 'block';
+  msgContainer.style.display = 'flex';
+  secondPersonName.innerText = userCard.innerText;
   secondUserId = userCard.id;
   chatId = uid > secondUserId ? uid + secondUserId : secondUserId + uid;
   getChats();
@@ -211,8 +231,11 @@ function chats(card) {
 
 async function sendChats() {
   let msg = msgInput.value;
-  let date = new Date
-  let time = date.toLocaleTimeString()
+  let d = new Date
+  let time = d.toLocaleTimeString();
+  let date = d.toLocaleDateString();
+  console.log(date);
+
   if (msg === '') {
     alert('write a msg first')
   } else {
@@ -222,6 +245,7 @@ async function sendChats() {
         from: uid,
         to: secondUserId,
         time,
+        date,
       });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -242,13 +266,15 @@ function getChats() {
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     chatContainer.innerHTML = null;
   querySnapshot.forEach((doc) => {
-    if (doc.data().from == uid) {
+    if (doc.data()) {
+      if (doc.data().from == uid) {
         msgClass = 'from';
     } else {
         msgClass = 'to';
     };
       let msgCard = `<div class="msg-box ${msgClass}"><span>${doc.data().msg}</span><p>${doc.data().time}</p></div>`
-      chatContainer.innerHTML += msgCard;
+      chatContainer.innerHTML += msgCard; 
+    };
   });
 });
 };

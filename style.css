@@ -196,18 +196,27 @@ body {
 
 .chat-app-container {
   display: none;
-  flex-wrap: wrap;
+}
+
+#users-container {
+  width: 30%;
 }
 
 #users {
-  width: 30%;
+  width: 100%;
   background-color: black;
-  height: 1000px;
+  /* height: 1000px; */
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#users::-webkit-scrollbar {
+  display: none;
 }
 
 #chats {
   width: 70%;
-  background-color: #ccc;
+  background-color: rgb(14, 13, 13);
 }
 
 .user-cards {
@@ -246,7 +255,7 @@ body {
 }
 
 #chat-container {
-    height: 510px;
+    height: 64%;
     background-color: rgb(14, 13, 13);
     overflow-y: scroll;
     display: flex;
@@ -256,10 +265,14 @@ body {
     padding-bottom: 10px;
 }
 
+#chat-container::-webkit-scrollbar {
+  display: none;
+}
+
 #msg-container {
     height: 10%;
     background-color: black;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     padding-left: 1em;
@@ -337,4 +350,28 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+#chat-user-image {
+  display: none;
+}
+
+#current-user-info {
+  background-color: black;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px #505050;
+}
+
+#profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+#current-user-name {
+  color: white;
+  text-transform: capitalize;
+  margin-left: 10px;
 }
