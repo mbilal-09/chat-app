@@ -95,12 +95,14 @@ onAuthStateChanged(auth, (user) => {
     loader.style.display = 'none';
     formContainer.style.display = "none";
     chatAppContainer.style.display = "flex";
+    signOutBtn.style.display = "block";
       getUsers();
     }, 500);
   } else {
     loader.style.display = 'none';
     formContainer.style.display = "block";
     chatAppContainer.style.display = "none";
+    signOutBtn.style.display = "none";
   }
 });
 
@@ -146,10 +148,12 @@ regBtn.addEventListener("click", () => {
   loader.style.display = 'block';
   formContainer.style.display = "none";
   chatAppContainer.style.display = "none";
+  signOutBtn.style.display = "none";
   setTimeout(() => {
     loader.style.display = 'none';
     formContainer.style.display = "none";
     chatAppContainer.style.display = "flex";
+    signOutBtn.style.display = "block";
     register()
   }, 5000);
 });
