@@ -19,7 +19,7 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
-import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-storage.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA2TI5fQkj_TrYMAYExMt8RC2H0EJGl1Xc",
@@ -59,8 +59,11 @@ const msgInput = document.getElementById('msg-input');
 const sendMsgBtn = document.getElementById('send-msg-btn')
 const chatContainer = document.getElementById('chat-container');
 const secondPersonName = document.getElementById('second-person-name');
-const userImage = document.getElementById('user-image')
+const userImage = document.getElementById('user-image');
+const chatUserImg = document.getElementById('chat-user-image');
+const loader = document.getElementById('loader');
 let secondUserId, chatId;
+let profileUrl;
 
 goToRegister.addEventListener("click", () => {
   signInForm.style.display = "none";
@@ -88,18 +91,33 @@ Object.values(formInput).forEach((e) => {
 onAuthStateChanged(auth, (user) => {
   if (user) {
     uid = user.uid;
+    setTimeout(() => {
+    loader.style.display = 'none';
     formContainer.style.display = "none";
     chatAppContainer.style.display = "flex";
-    setTimeout(() => {
       getUsers();
     }, 500);
   } else {
+    loader.style.display = 'none';
     formContainer.style.display = "block";
     chatAppContainer.style.display = "none";
   }
 });
 
-function register() {
+function uploadImg() {
+  const imgRef = ref(storage, `users/${userImage.files[0].name}`);
+  uploadBytes(imgRef, userImage.files[0]).then((snapshot) => {
+    getDownloadURL(imgRef)
+      .then(url => {
+        profileUrl = url;
+        console.log(profileUrl);
+      })
+      .catch(err => console.error(err))
+  });
+};
+userImage.addEventListener('change', uploadImg)
+
+async function register() {
   createUserWithEmailAndPassword(auth, regEmail.value, regPass.value)
     .then((userCredential) => {
       const user = userCredential.user;
@@ -110,24 +128,31 @@ function register() {
       alert(errorCode);
     });
 
-  const imgRef = ref(storage, 'users');
-  uploadBytes(imgRef, userImage.files[0]).then((snapshot) => {
-  });
-
   setTimeout(async () => {
     try {
-      const userRef = collection(db, "users");
+      const userRef = collection(db, `users`);
       await setDoc(doc(userRef, uid), {
         name: userName.value,
         email: regEmail.value,
         pass: regPass.value,
+        profileImg: profileUrl,
       });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   }, 2000);
 }
-regBtn.addEventListener("click", register);
+regBtn.addEventListener("click", () => {
+  loader.style.display = 'block';
+  formContainer.style.display = "none";
+  chatAppContainer.style.display = "none";
+  setTimeout(() => {
+    loader.style.display = 'none';
+    formContainer.style.display = "none";
+    chatAppContainer.style.display = "flex";
+    register()
+  }, 5000);
+});
 
 function signIn() {
   signInWithEmailAndPassword(auth, signInEmail.value, signInPass.value)
@@ -156,9 +181,10 @@ async function getUsers() {
   const q = query(collection(db, "users"));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
-    let userCard = `<span class="user-cards" id=${doc.id}>${
-      doc.data().name
-    }</span>`;
+    let userCard = `<span class="user-cards" id=${doc.id}>
+    <img src=${doc.data().profileImg}></img>
+    ${doc.data().name}
+    </span>`;
     usersContainer.innerHTML += userCard;
   });
   Array.from(document.getElementsByClassName('user-cards')).forEach((e) => {
@@ -172,6 +198,7 @@ function chats(card) {
   });
   let userCard = card.target;
   userCard.style.backgroundColor = 'rgb(27, 27, 27)';
+  chatUserImg.src = userCard.children[0].src;
   secondPersonName.innerText = userCard.innerText
   secondUserId = userCard.id;
   chatId = uid > secondUserId ? uid + secondUserId : secondUserId + uid;
@@ -182,8 +209,6 @@ async function sendChats() {
   let msg = msgInput.value;
   let date = new Date
   let time = date.toLocaleTimeString()
-  console.log(date);
-  console.log(time);
   if (msg === '') {
     alert('write a msg first')
   } else {
@@ -218,7 +243,7 @@ function getChats() {
     } else {
         msgClass = 'to';
     };
-      let msgCard = `<div class="msg-box ${msgClass}"><span>${doc.data().msg}</span></div>`
+      let msgCard = `<div class="msg-box ${msgClass}"><span>${doc.data().msg}</span><p>${doc.data().time}</p></div>`
       chatContainer.innerHTML += msgCard;
   });
 });
