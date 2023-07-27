@@ -204,10 +204,8 @@ body {
 
 #users {
   width: 100%;
-  background-color: black;
-  /* height: 1000px; */
+  height: 590px;
   overflow-x: hidden;
-  overflow-y: scroll;
 }
 
 #users::-webkit-scrollbar {
@@ -255,7 +253,7 @@ body {
 }
 
 #chat-container {
-    height: 64%;
+    height: 530px;
     background-color: rgb(14, 13, 13);
     overflow-y: scroll;
     display: flex;
@@ -343,6 +341,7 @@ body {
   border: none;
   color: white;
   border-radius: 50px;
+  cursor: pointer;
 }
 
 #loader {
