@@ -96,10 +96,10 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     uid = user.uid;
     setTimeout(() => {
-    loader.style.display = 'none';
-    formContainer.style.display = "none";
-    chatAppContainer.style.display = "flex";
-    signOutBtn.style.display = "block";
+      loader.style.display = 'none';
+      formContainer.style.display = "none";
+      chatAppContainer.style.display = "flex";
+      signOutBtn.style.display = "block";
       getUsers();
     }, 500);
   } else {
@@ -143,40 +143,49 @@ async function register() {
         pass: regPass.value,
         profileImg: profileUrl,
       });
+      location.reload();
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   }, 2000);
 }
 regBtn.addEventListener("click", () => {
-  loader.style.display = 'block';
-  formContainer.style.display = "none";
-  chatAppContainer.style.display = "none";
-  signOutBtn.style.display = "none";
-  setTimeout(() => {
-    loader.style.display = 'none';
+  if (regEmail.value && regPass.value && userImage.files[0]) {
+    loader.style.display = 'block';
     formContainer.style.display = "none";
-    chatAppContainer.style.display = "flex";
-    signOutBtn.style.display = "block";
-    register()
-  }, 5000);
+    chatAppContainer.style.display = "none";
+    signOutBtn.style.display = "none";
+    setTimeout(() => {
+      loader.style.display = 'none';
+      formContainer.style.display = "none";
+      chatAppContainer.style.display = "flex";
+      signOutBtn.style.display = "block";
+      register()
+    }, 5000);
+  } else {
+    alert("Please fill all fields first");
+  }
 });
 
 function signIn() {
-  signInWithEmailAndPassword(auth, signInEmail.value, signInPass.value)
-    .then((userCredential) => {
-      const user = userCredential.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      alert(errorCode);
-    });
+  if (signInEmail.value && signInPass.value) {
+    signInWithEmailAndPassword(auth, signInEmail.value, signInPass.value)
+      .then((userCredential) => {
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        alert(errorCode);
+      });
+  } else {
+    alert("Please fill all fields first");
+  }
 }
 signInBtn.addEventListener("click", signIn);
 
 function logOut() {
   signOut(auth)
-    .then(() => {})
+    .then(() => { })
     .catch((error) => {
       alert(error.code);
     });
@@ -265,16 +274,16 @@ function getChats() {
   const q = query(collection(db, `chats/msg/${chatId}`), orderBy("time"));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     chatContainer.innerHTML = null;
-  querySnapshot.forEach((doc) => {
-    if (doc.data()) {
-      if (doc.data().from == uid) {
-        msgClass = 'from';
-    } else {
-        msgClass = 'to';
-    };
-      let msgCard = `<div class="msg-box ${msgClass}"><span>${doc.data().msg}</span><p>${doc.data().time}</p></div>`
-      chatContainer.innerHTML += msgCard; 
-    };
+    querySnapshot.forEach((doc) => {
+      if (doc.data()) {
+        if (doc.data().from == uid) {
+          msgClass = 'from';
+        } else {
+          msgClass = 'to';
+        };
+        let msgCard = `<div class="msg-box ${msgClass}"><span>${doc.data().msg}</span><p>${doc.data().time}</p></div>`
+        chatContainer.innerHTML += msgCard;
+      };
+    });
   });
-});
 };
