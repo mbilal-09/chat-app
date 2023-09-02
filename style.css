@@ -54,6 +54,12 @@ body {
   color: white;
 }
 
+input[type="file"] {
+  background: black;
+  border: none;
+  color: #ab17ee;
+}
+
 .form > span {
   color: white;
   margin-bottom: 1em;
